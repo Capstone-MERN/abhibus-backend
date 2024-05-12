@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
-const stopSchema = new mongoose.Schema({
+const stopsObj = {
   stopId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     required: true,
+    unique: true,
   },
   directions: {
     type: String,
@@ -13,9 +14,15 @@ const stopSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  latitude: Number,
-  longitude: Number,
-});
+  latitude: {
+    type: Number,
+    required: true,
+  },
+  longitude: {
+    type: Number,
+    required: true,
+  },
+};
 
 const citySchema = new mongoose.Schema({
   city: {
@@ -34,7 +41,9 @@ const citySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  stops: [stopSchema],
+  stops: stopsObj,
 });
 
-module.exports = mongoose.model("City", citySchema);
+const City = mongoose.model("City", citySchema);
+
+module.exports = City;

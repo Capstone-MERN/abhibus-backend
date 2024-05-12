@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -9,11 +12,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    match: emailRegex,
   },
   phoneNumber: {
     type: String,
     required: true,
     unique: true,
+    match: phoneRegex,
   },
   gender: {
     type: String,
@@ -21,9 +26,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   dob: {
-    type: Date,
+    type: Number,
     required: true,
   },
 });
 
-module.exports = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;
