@@ -1,5 +1,4 @@
 ## Schema designs
-
 ### Users
 
 ```javascript
