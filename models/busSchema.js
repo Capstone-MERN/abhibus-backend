@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const constants = require("./constants");
 
-//created seatSchema
-const seatSchema = {
+const Seat = {
   row: { type: Number, required: true },
   column: { type: Number, required: true },
   seatNumber: { type: String, required: true },
@@ -13,17 +12,13 @@ const seatSchema = {
   },
 };
 
-//separated lower and upper deck schema
-const lowerDeckSchema = [seatSchema];
-const upperDeckSchema = [seatSchema];
-
 const busSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
   plateNumber: { type: String, required: true },
   busType: { type: String, enum: constants.busTypes, required: true },
   seatLayout: {
-    lower_deck: lowerDeckSchema,
-    upper_deck: upperDeckSchema,
+    lower_deck: [Seat],
+    upper_deck: [Seat],
   },
   partner: { type: String, required: true },
   amenities: [

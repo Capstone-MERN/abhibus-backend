@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const constants = require("./constants");
 
-// tourPlaces schema created to avoid repetition
-const tourPlacesSchema = {
+const TourPlace = {
   cityId: { type: Number, required: true },
   stops: [
     {
@@ -14,8 +12,8 @@ const tourPlacesSchema = {
 
 const tourSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
-  source: tourPlacesSchema,
-  destination: tourPlacesSchema,
+  source: TourPlace,
+  destination: TourPlace,
   travelDate: { type: Number, required: true },
   busId: { type: Number, required: true },
   prices: [
