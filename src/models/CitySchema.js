@@ -41,7 +41,7 @@ const citySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  stops: stopsObj,
+  stops: [stopsObj],
 });
 
 const City = mongoose.model("City", citySchema);

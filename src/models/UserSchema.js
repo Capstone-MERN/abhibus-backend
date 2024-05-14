@@ -11,14 +11,14 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
     match: emailRegex,
+    unique: true,
   },
   phoneNumber: {
     type: String,
     required: true,
-    unique: true,
     match: phoneRegex,
+    unique: true,
   },
   gender: {
     type: String,
