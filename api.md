@@ -248,10 +248,6 @@ Returns the seat layout of the bus.
 
 Returns a JSON object with the following properties:
 
-Here is the description for the given JSON response structure:
-
-Returns a JSON object with the following properties:
-
 - `status`: The HTTP status code of the response.
 - `message`: A message describing the status.
 - `data`: An object with the property:
