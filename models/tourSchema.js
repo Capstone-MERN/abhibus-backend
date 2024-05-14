@@ -4,6 +4,7 @@ const TourPlace = {
   cityId: { type: Number, required: true },
   stops: [
     {
+      stop_name : {type: String, required :true},
       stopId: { type: Number, required: true },
       arrivalTime: { type: Number, required: true },
     },
