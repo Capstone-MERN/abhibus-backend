@@ -186,3 +186,90 @@ Bus2 : {B3: 4:30AM }, {B4 : 5:30AM}
 If two users are booking concurrently.
 t = 5s => Amith Booked UL1 seat
 t = 6s => Dhruv trying book UL1, UL2, UL3 seat
+
+### Signup
+
+- POST `/auth/signup`
+
+#### Request Body
+
+```javascript
+  {
+    name: String,
+    email: String,
+    number: String,
+    gender: enum('M','F'),
+    dob: Number
+  }
+```
+
+#### Response
+
+- Status code `201`
+
+```javascript
+{
+  message: "User has been created";
+}
+```
+
+### Error
+
+#### Email or Phone numebr already exists `409`
+
+```javascript
+{
+  message: "The email or phone number is already associated with an existing account.";
+}
+```
+
+#### Email is incorrect `400`
+
+```javascript
+{
+  message: "The email address provided is not in a valid format.";
+}
+```
+
+#### Phone numebr is incorrect `409`
+
+```javascript
+{
+  message: "The phone number provided is not in a valid format.";
+}
+```
+
+### Login
+
+- POST `/auth/login`
+
+#### Request Body
+
+```javascript
+{
+  loginId: String, //LoginId can be email or phone number.
+}
+```
+
+#### Response
+
+- Status code `200`
+
+```javascript
+{
+  message: "Login Successful",
+  data: {
+    token: String
+  }
+}
+```
+
+### Error
+
+#### UnAuthorized `401`
+
+```javascript
+{
+  message: "Unauthorized";
+}
+```
