@@ -1,6 +1,6 @@
-## API docs for abhibus Backend
+# API docs for abhibus Backend
 
-### Get all cities
+## Get all cities
 
 - GET `/cities`
 
@@ -18,7 +18,7 @@
 }
 ```
 
-### Fetch the tours
+## Fetch the tours
 
 - POST `/tours`
 
@@ -89,7 +89,7 @@ Bus1 : { B1, 8:45AM }, {B3, 10:30AM}, { B4, 11:00AM }
 
 Bus2 : {B3: 4:30AM }, {B4 : 5:30AM}
 
-### Get Seat layout
+## Get Seat layout
 
 - GET `/layout?busId=2929&tourId=37388`
 
@@ -127,7 +127,7 @@ Bus2 : {B3: 4:30AM }, {B4 : 5:30AM}
 - When busId/tourId is invalid
 - `404` Not found bus/tour.
 
-### Booking
+## Booking
 
 - Only loggedin users can perform this action.
 
@@ -187,7 +187,7 @@ If two users are booking concurrently.
 t = 5s => Amith Booked UL1 seat
 t = 6s => Dhruv trying book UL1, UL2, UL3 seat
 
-### Signup
+## Signup
 
 - POST `/auth/signup`
 
@@ -197,7 +197,7 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
   {
     name: String,
     email: String,
-    number: String,
+    phoneNumber: String,
     gender: enum('M','F'),
     dob: Number
   }
@@ -209,37 +209,21 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
 
 ```javascript
 {
-  message: "User has been created";
+  message: "Signup success";
 }
 ```
 
 ### Error
 
-#### Email or Phone numebr already exists `409`
+#### Bad request `400`
 
-```javascript
+```json
 {
-  message: "The email or phone number is already associated with an existing account.";
+  "message": "Invalid request"
 }
 ```
 
-#### Email is incorrect `400`
-
-```javascript
-{
-  message: "The email address provided is not in a valid format.";
-}
-```
-
-#### Phone numebr is incorrect `409`
-
-```javascript
-{
-  message: "The phone number provided is not in a valid format.";
-}
-```
-
-### Login
+## Login
 
 - POST `/auth/login`
 
@@ -247,7 +231,8 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
 
 ```javascript
 {
-  loginId: String, //LoginId can be email or phone number.
+  "email": String,
+  "password": String
 }
 ```
 
@@ -265,6 +250,14 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
 ```
 
 ### Error
+
+#### Bad request `400`
+
+```json
+{
+  "message": "Invalid request"
+}
+```
 
 #### UnAuthorized `401`
 
