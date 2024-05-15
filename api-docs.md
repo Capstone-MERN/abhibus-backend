@@ -231,7 +231,7 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
 }
 ```
 
-#### Phone numebr is incorrect `409`
+#### Phone numebr is incorrect `400`
 
 ```javascript
 {
@@ -271,5 +271,21 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
 ```javascript
 {
   message: "Unauthorized";
+}
+```
+
+#### Email is incorrect `400`
+
+```javascript
+{
+  message: "The email address provided is not in a valid format.";
+}
+```
+
+#### Phone numebr is incorrect `400`
+
+```javascript
+{
+  message: "The phone number provided is not in a valid format.";
 }
 ```
