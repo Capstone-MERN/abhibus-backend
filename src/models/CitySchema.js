@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const stopsObj = {
+const Stop = {
   stopId: {
     type: Number,
     required: true,
@@ -41,7 +41,7 @@ const citySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  stops: [stopsObj],
+  stops: [Stop],
 });
 
 const City = mongoose.model("City", citySchema);

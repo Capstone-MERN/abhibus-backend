@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const constants = require("./constants");
+const constants = require("../utils/constants");
 
 const Seat = {
   row: { type: Number, required: true },
@@ -17,8 +17,8 @@ const busSchema = new mongoose.Schema({
   plateNumber: { type: String, required: true },
   busType: { type: String, enum: constants.busTypes, required: true },
   seatLayout: {
-    lower_deck: [Seat],
-    upper_deck: [Seat],
+    lowerDeck: [Seat],
+    upperDeck: [Seat],
   },
   partner: { type: String, required: true },
   amenities: [
