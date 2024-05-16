@@ -1,3 +1,5 @@
+const Tour = require("../models/tourSchema");
+const Booking = require("../models/bookingSchema");
 //Function to find bus by Id
 async function findBusById(id) {
   const bus = await Bus.find({ id: id });
