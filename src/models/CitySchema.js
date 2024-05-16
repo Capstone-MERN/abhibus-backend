@@ -25,6 +25,10 @@ const Stop = {
 };
 
 const citySchema = new mongoose.Schema({
+  cityId : {
+    type:Number,
+    required : true
+  },
   city: {
     type: String,
     required: true,
