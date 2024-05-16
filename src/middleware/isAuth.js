@@ -10,6 +10,7 @@ const isAuth = async (req, res, next) => {
     const userDb = await User.findOne({ email: verify.email });
 
     if (userDb) {
+      req.user = userDb;
       next();
     } else {
       throw new Error("Unauthorized");
