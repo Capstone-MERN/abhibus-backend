@@ -79,7 +79,7 @@ const findTours = async (cityId1, cityId2, travelDate) => {
         // bookings for the tour
         const availableSeats = await calculateAvailableSeats(tour.id, bus);
         
-        if (availableSeats > 0) {
+        
           const response = {
             busId: tour.busId,
             tourId: tour.id,
@@ -97,7 +97,7 @@ const findTours = async (cityId1, cityId2, travelDate) => {
           };
   
         results.push(response);
-      }
+      
     }
       return results;
     } catch (error) {
