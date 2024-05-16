@@ -79,25 +79,26 @@ const findTours = async (cityId1, cityId2, travelDate) => {
         // bookings for the tour
         const availableSeats = await calculateAvailableSeats(tour.id, bus);
         
-        const response = {
-          busId: tour.busId,
-          tourId: tour.id,
-          busType: bus.busType,
-          busPartner: bus.partner,
-          amenities: bus.amenities.map(a => a.label),
-          startTime: tour.source.stops[0].arrivalTime,
-          endTime: tour.destination.stops[0].arrivalTime,
-          duration: calculateDuration(tour.source.stops[0].arrivalTime, tour.destination.stops[0].arrivalTime),
-          availableSeats,
-          minPrice: Math.min(...tour.prices.map(p => p.price)),
-          maxPrice: Math.max(...tour.prices.map(p => p.price)),
-          sourceStops: tour.source.stops,
-          destinationStops: tour.destination.stops,
-        };
+        if (availableSeats > 0) {
+          const response = {
+            busId: tour.busId,
+            tourId: tour.id,
+            busType: bus.busType,
+            busPartner: bus.partner,
+            amenities: bus.amenities.map(a => a.label),
+            startTime: tour.source.stops[0].arrivalTime,
+            endTime: tour.destination.stops[0].arrivalTime,
+            duration: calculateDuration(tour.source.stops[0].arrivalTime, tour.destination.stops[0].arrivalTime),
+            availableSeats,
+            minPrice: Math.min(...tour.prices.map(p => p.price)),
+            maxPrice: Math.max(...tour.prices.map(p => p.price)),
+            sourceStops: tour.source.stops,
+            destinationStops: tour.destination.stops,
+          };
   
         results.push(response);
       }
-  
+    }
       return results;
     } catch (error) {
       console.error('Error fetching tours:', error);
