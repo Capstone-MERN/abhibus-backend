@@ -9,7 +9,8 @@
     gender: enum("M", "F"),
     phoneNumber: String,
     name: String,
-    dob: Number // epoch time.
+    dob: Number, // epoch time.
+    password: String // Hashed password.
 }
 ```
 
