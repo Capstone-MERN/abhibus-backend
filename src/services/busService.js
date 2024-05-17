@@ -37,8 +37,36 @@ async function getBookedSeats(tourId) {
    */
 }
 
+async function getSeatLayout(tourId, busId) {
+  const bus = await findBusById(busId);
+  const pricesMap = await getSeatPrices(tourId);
+  const bookedSeats = await getBookedSeats(tourId);
+
+  const createDeckResponse = (seat) => {
+    const seatNumber = seat.seatNumber;
+    return {
+      row: seat.row,
+      column: seat.column,
+      seatNumber,
+      seatType: seat.seatType,
+      price: pricesMap.get(seatNumber),
+      ...(bookedSeats.get(seatNumber) && {
+        gender: bookedSeats.get(seatNumber),
+      }),
+    };
+  };
+
+  return {
+    layout: {
+      upperDeck: bus.seatLayout.upperDeck?.map(createDeckResponse),
+      lowerDeck: bus.seatLayout.lowerDeck?.map(createDeckResponse),
+    },
+  };
+}
+
 module.exports = {
   findBusById,
   getSeatPrices,
   getBookedSeats,
+  getSeatLayout,
 };
