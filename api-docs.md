@@ -199,7 +199,8 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
     email: String,
     phoneNumber: String,
     gender: enum('M','F'),
-    dob: Number
+    dob: Number,
+    password:String
   }
 ```
 

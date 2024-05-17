@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+const phoneRegex = /^(\+91[\-\s]?)?[6-9]\d{9}$/;
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
   },
   dob: {
     type: Number,
+    required: true,
+  },
+  password: {
+    type: String,
     required: true,
   },
 });
