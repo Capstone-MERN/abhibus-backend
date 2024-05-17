@@ -1,11 +1,8 @@
 const City = require("../models/CitySchema");
 
 async function findCities() {
-  try {
-    const cities = await City.find();
-    return cities;
-  } catch (error) {
-    throw new Error("Failed to fetch cities");
-  }
+  const cities = await City.find({}, { stops: 0, _id: 0, __v: 0 });
+  return cities;
 }
-module.exports = findCities;
+
+module.exports = { findCities };
