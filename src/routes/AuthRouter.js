@@ -1,5 +1,4 @@
 const AuthRouter = require("express").Router();
-const authMiddleware = require("../middleware/authMiddleware");
 const {
   createNewUser,
   findUser,
@@ -47,7 +46,6 @@ AuthRouter.post(endpoints.signup, async (req, res) => {
   } catch (error) {
     res.status(400).json({
       message: "Invalid request",
-      error: error.message,
     });
   }
 });
@@ -62,7 +60,6 @@ AuthRouter.post(endpoints.login, async (req, res) => {
     }
 
     const userData = await findUser(email);
-    console.log(userData)
     const isMatch = await bcrypt.compare(password, userData.password);
     if (!isMatch) {
       return res.status(400).json({
@@ -83,10 +80,9 @@ AuthRouter.post(endpoints.login, async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: "invalid request",
+      message: "Invalid credentials",
     });
   }
 });
-
 
 module.exports = AuthRouter;
