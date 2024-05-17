@@ -22,7 +22,7 @@ const findStopPointsByCityId = async (cityId) => {
 
 const findCityName = async(cityId) => {
     try{
-      const city = await City.findOne({ cityId: cityId });
+      const city = await City.findOne({ cityId: cityId }, { name: 1 });
     if(!city){
         throw new Error('City not found');
     }
