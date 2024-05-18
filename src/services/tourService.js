@@ -105,12 +105,35 @@ const findTours = async (cityId1, cityId2, travelDate) => {
       throw error;
     }
   };
+
+
+const getResponse = async(sourceCityId, destinationCityId, date) => {
+  const sourceCity = await findCityName(sourceCityId) 
+
+      const destinationCity = await findCityName(destinationCityId)
+
+      const tours = await findTours(sourceCityId, destinationCityId, date);
+
+      const sourceStopPoints = await findStopPointsByCityId(sourceCityId);
+
+      const destinationStopPoints = await findStopPointsByCityId(destinationCityId);
+
+      const response = {
+        sourceCity, 
+        destinationCity,
+        boardingPoints: sourceStopPoints,
+        droppingPoints: destinationStopPoints,
+        tours: tours
+      };
   
+      return response;
+}
 
 module.exports = {
     findStopPointsByCityId, 
     findTours,
-    findCityName
+    findCityName,
+    getResponse
 };
 
 
