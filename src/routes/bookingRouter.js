@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const BookingRouter = express.Router();
-const isAuth = require('../middleware/isAuth'); 
-const { getResponse } = require('../services/bookingService'); 
-const endpoints = require('../utils/endpoints')
+const authMiddleware = require("../middleware/authMiddleware");
+const { saveBookings } = require("../services/bookingService");
+const endpoints = require("../utils/endpoints");
 
-BookingRouter.post(endpoints.book, isAuth, async (req, res) => {
+BookingRouter.post(endpoints.book, authMiddleware, async (req, res) => {
   try {
     const { tourId, seats } = req.body;
 
@@ -14,7 +14,7 @@ BookingRouter.post(endpoints.book, isAuth, async (req, res) => {
       });
     }
 
-    const response = await getResponse(tourId, seats)
+    const response = await saveBookings(tourId, req.userId, seats);
 
     res.status(201).json({
       message: "Booking Successful",
@@ -28,4 +28,3 @@ BookingRouter.post(endpoints.book, isAuth, async (req, res) => {
 });
 
 module.exports = BookingRouter;
-
