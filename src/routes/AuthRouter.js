@@ -1,5 +1,9 @@
 const AuthRouter = require("express").Router();
-const { createNewUser, findUser } = require("../services/AuthServices");
+const {
+  createNewUser,
+  findUser,
+  validatePassword,
+} = require("../services/AuthServices");
 const endpoints = require("../utils/endpoints");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -8,7 +12,16 @@ AuthRouter.post(endpoints.signup, async (req, res) => {
   try {
     const { name, email, phoneNumber, gender, dob, password } = req.body;
 
-    if (!name || !email || !phoneNumber || !gender || !dob || !password) {
+    const isValidPassword = validatePassword(password);
+    if (
+      !name ||
+      !email ||
+      !phoneNumber ||
+      !gender ||
+      !dob ||
+      !password ||
+      !isValidPassword
+    ) {
       throw new Error("Invalid request");
     }
     const hashedPassword = await bcrypt.hash(
@@ -32,10 +45,11 @@ AuthRouter.post(endpoints.signup, async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: error.message,
+      message: "Invalid request",
     });
   }
-}).post(endpoints.login, async (req, res) => {
+});
+AuthRouter.post(endpoints.login, async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -46,7 +60,6 @@ AuthRouter.post(endpoints.signup, async (req, res) => {
     }
 
     const userData = await findUser(email);
-
     const isMatch = await bcrypt.compare(password, userData.password);
     if (!isMatch) {
       return res.status(400).json({
@@ -54,7 +67,10 @@ AuthRouter.post(endpoints.signup, async (req, res) => {
       });
     }
 
-    const token = await jwt.sign({ email }, process.env.SECRET_KEY);
+    const token = await jwt.sign(
+      { userId: userData._id.toString() },
+      process.env.SECRET_KEY
+    );
 
     res.status(200).json({
       message: "Login Successful",
@@ -64,7 +80,7 @@ AuthRouter.post(endpoints.signup, async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      message: error.message,
+      message: "Invalid credentials",
     });
   }
 });

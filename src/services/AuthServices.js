@@ -1,27 +1,22 @@
 const User = require("../models/UserSchema");
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,12}$/;
+
+const validatePassword = (password) => {
+  return passwordRegex.test(password);
+};
 
 const createNewUser = async (userInfo) => {
-  try {
-    await User.create(userInfo);
-  } catch (error) {
-    throw new Error("invalid request");
-  }
+  await User.create(userInfo);
 };
 
 const findUser = async (email) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const userData = await User.findOne({ email });
+  const userData = await User.findOne({ email });
 
-      if (!userData) {
-        throw new Error("Unauthorized");
-      }
-
-      resolve(userData);
-    } catch (error) {
-      reject(error);
-    }
-  });
+  if (!userData) {
+    throw new Error("Unauthorized");
+  }
+  return userData;
 };
 
-module.exports = { createNewUser, findUser };
+module.exports = { createNewUser, findUser, validatePassword };
