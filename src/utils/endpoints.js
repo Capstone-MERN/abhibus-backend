@@ -1,5 +1,6 @@
 module.exports = {
   login: "/login",
   signup: "/signup",
-  getTours : "/tours"
+  getTours : "/tours",
+  book : "/book"
 };

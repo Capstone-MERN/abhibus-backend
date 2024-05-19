@@ -91,7 +91,7 @@ Bus2 : {B3: 4:30AM }, {B4 : 5:30AM}
 
 ## Get Seat layout
 
-- GET `/layout?busId=2929&tourId=37388`
+- GET `bus/layout?busId=2929&tourId=37388`
 
 #### Response
 
@@ -199,7 +199,8 @@ t = 6s => Dhruv trying book UL1, UL2, UL3 seat
     email: String,
     phoneNumber: String,
     gender: enum('M','F'),
-    dob: Number
+    dob: Number,
+    password:String
   }
 ```
 
