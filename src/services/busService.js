@@ -9,12 +9,15 @@ async function findBusById(busId) {
 
 //Function to get the prices of the seats
 async function getSeatPrices(tourId) {
-  const tour = await Tour.findOne({ id: tourId }, { prices: 1, _id: 0 });
+  const tour = await Tour.findOne(
+    { id: tourId },
+    { prices: 1, _id: 0, busId: 1 }
+  );
   const pricesMap = new Map();
   tour.prices.forEach((seat) => {
     pricesMap.set(seat.seatNumber, seat.price);
   });
-  return pricesMap;
+  return { pricesMap, busId: tour.busId };
   // { "L4": 3000, "L5": 2000, "L6": 1500 }
 }
 
@@ -37,9 +40,9 @@ async function getBookedSeats(tourId) {
    */
 }
 
-async function getSeatLayout(tourId, busId) {
+async function getSeatLayout(tourId) {
+  const { pricesMap, busId } = await getSeatPrices(tourId);
   const bus = await findBusById(busId);
-  const pricesMap = await getSeatPrices(tourId);
   const bookedSeats = await getBookedSeats(tourId);
 
   const createDeckResponse = (seat) => {

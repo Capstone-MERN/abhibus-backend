@@ -21,12 +21,11 @@ const getBookedSeatsByTourId = async (tourId) => {
 const findTours = async (cityId1, cityId2, travelDate) => {
   try {
     // FIXME: everything should be dealed with millis.
-    const startOfDay = new Date(travelDate * 1000).setHours(0, 0, 0, 0) / 1000;
-    const endOfDay =
-      new Date(travelDate * 1000).setHours(23, 59, 59, 999) / 1000;
+    const startOfDay = new Date(travelDate).setHours(0, 0, 0, 0);
+    const endOfDay = new Date(travelDate).setHours(23, 59, 59, 999);
 
     // current epoch time
-    const currentTime = Math.floor(Date.now() / 1000);
+    const currentTime = Math.floor(Date.now());
 
     let query = {
       "source.cityId": cityId1,
@@ -35,7 +34,7 @@ const findTours = async (cityId1, cityId2, travelDate) => {
     };
 
     // If the travel date is today
-    const today = Math.floor(new Date().setHours(0, 0, 0, 0) / 1000);
+    const today = Math.floor(new Date().setHours(0, 0, 0, 0));
     if (travelDate === today) {
       query["source.stops.0.arrivalTime"] = { $gte: currentTime };
     }
