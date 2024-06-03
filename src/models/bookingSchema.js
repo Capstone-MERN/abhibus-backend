@@ -12,7 +12,7 @@ const bookingSchema = new mongoose.Schema({
     },
   ],
   tourId: { type: Number, required: true },
-  userId: { type: Number, required: true },
+  userId: { type: mongoose.Types.ObjectId, required: true },
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
